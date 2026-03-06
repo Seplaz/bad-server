@@ -11,9 +11,12 @@ import errorHandler from './middlewares/error-handler'
 import serveStatic from './middlewares/serverStatic'
 import routes from './routes'
 import { csrfProtection } from './middlewares/csrf'
+import { generalLimiter } from './middlewares/rate-limit'
 
 const { PORT = 3000 } = process.env
 const app = express()
+
+app.use(generalLimiter)
 
 app.use(cookieParser())
 
