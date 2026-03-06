@@ -48,6 +48,14 @@ const fileFilter = (
         return cb(null, false)
     }
 
+    if (
+        file.originalname.includes('..') ||
+        file.originalname.includes('/') ||
+        file.originalname.includes('\\')
+    ) {
+        return cb(new Error('Недопустимое имя файла'))
+    }
+
     return cb(null, true)
 }
 
