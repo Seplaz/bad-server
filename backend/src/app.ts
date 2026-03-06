@@ -29,8 +29,8 @@ app.use(cors())
 
 app.use(serveStatic(path.join(__dirname, 'public')))
 
-app.use(urlencoded({ extended: true }))
-app.use(json())
+app.use(urlencoded({ extended: true, limit: '10mb' }))
+app.use(json({ limit: '10mb' }))
 
 app.use(
     mongoSanitize({
