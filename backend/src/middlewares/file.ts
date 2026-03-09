@@ -1,6 +1,7 @@
 import { Request, Express } from 'express'
 import multer, { FileFilterCallback } from 'multer'
-import { join } from 'path'
+import { extname, join } from 'path'
+import slug from 'unique-slug'
 
 type DestinationCallback = (error: Error | null, destination: string) => void
 type FileNameCallback = (error: Error | null, filename: string) => void
@@ -27,7 +28,8 @@ const storage = multer.diskStorage({
         file: Express.Multer.File,
         cb: FileNameCallback
     ) => {
-        cb(null, file.originalname)
+        const ext = extname(file.originalname) || '.png'
+        cb(null, `${slug()}-${Date.now()}${ext}`)
     },
 })
 
@@ -62,5 +64,5 @@ const fileFilter = (
 export default multer({
     storage,
     fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024, files: 1 },
+    limits: { fileSize: 10 * 1024 * 1024, files: 1 },
 })

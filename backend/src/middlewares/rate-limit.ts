@@ -20,3 +20,9 @@ export const orderLimiter = rateLimit({
     max: 10,
     message: 'Слишком много заказов, подождите минуту',
 })
+
+export const customersLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    message: 'Слишком много запросов к списку пользователей, попробуйте позже',
+})

@@ -14,6 +14,9 @@ import { authLimiter } from '../middlewares/rate-limit'
 
 const authRouter = Router()
 
+authRouter.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() })
+})
 authRouter.get('/user', auth, getCurrentUser)
 authRouter.patch('/me', auth, validateUserUpdateBody, updateCurrentUser)
 authRouter.get('/user/roles', auth, getCurrentUserRoles)

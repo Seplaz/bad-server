@@ -52,11 +52,20 @@ app.use(
 )
 
 app.use(csrfProtection)
-app.get('/csrf-token', (req, res) => {
-    res.json({ csrfToken: req.csrfToken() })
+app.use((req, res, next) => {
+    try {
+        const csrfToken = req.csrfToken()
+        res.cookie('XSRF-TOKEN', csrfToken, {
+            httpOnly: false,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            path: '/',
+        })
+    } catch {
+        // ignore
+    }
+    next()
 })
-
-// app.options('*', cors())
 app.use(routes)
 app.use(errors())
 app.use(errorHandler)

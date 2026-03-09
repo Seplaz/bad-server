@@ -16,7 +16,7 @@ import { orderLimiter } from '../middlewares/rate-limit'
 const orderRouter = Router()
 
 orderRouter.post('/', auth, orderLimiter, validateOrderBody, createOrder)
-orderRouter.get('/all', auth, getOrders)
+orderRouter.get('/all', auth, roleGuardMiddleware(Role.Admin), getOrders)
 orderRouter.get('/all/me', auth, getOrdersCurrentUser)
 orderRouter.get(
     '/:orderNumber',
