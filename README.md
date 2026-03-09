@@ -12,4 +12,4 @@ docker compose up -d
 5. На странице http://localhost/login/ можно авторизоваться.
 6. Админка находится по адресу http://localhost/admin/
 
-[Ссылка на репозиторий](https://github.com/Seplaz/bad-server#)
+[[Ссылка на репозиторий](https://github.com/Seplaz/bad-server#)](https://github.com/username/bad-server)
